@@ -10,8 +10,9 @@ class extraction:
     def data_sorting(self):
         featrues = ["Practice Hours (x1​)", "Written Test Score (x2​)"]
         self.x1 = self.data[featrues].to_numpy()
-        self.y1 = self.data["Result (y)"].to_numpy()
+        self.y1 = self.data[["Result (y)"]].to_numpy()
 
+    def save_
 
 class logic(extraction):
 
@@ -19,15 +20,26 @@ class logic(extraction):
         super().__init__()
         self.bias = 0
         self.weights = np.zeros((2, 1))
+        self.echoes = 10000
+        self.lrt = .01
 
     def sigmoid(self, z):
         return 1 / (1 + np.exp(-z))
 
     def Training(self):
         self.data_sorting()
-        print(self.x1)
-        print(self.y1)
-
-
+        n = len(self.x1)
+        for echoe in range(self.echoes):
+            z = np.dot(self.x1,self.weights)+self.bias
+            pred = self.sigmoid(z)
+            loss = pred-self.y1
+            gradient = loss*pred*(1-pred)*1
+            dw = np.dot(self.x1.T,gradient)/n;
+            db = np.sum(gradient)/n
+            self.weights -= dw* self.lrt
+            self.bias -= db* self.lrt
+            if echoe%10 ==0:
+                print(f"Baised is :{self.bias}")
+        print("Weights is what ",self.weights)
 p = logic()
 p.Training()
