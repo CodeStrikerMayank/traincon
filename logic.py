@@ -12,7 +12,10 @@ class extraction:
         self.x1 = self.data[featrues].to_numpy()
         self.y1 = self.data[["Result (y)"]].to_numpy()
 
-    def save_
+    def save_file(self):
+        data = [{"weights": self.weights,"bias": self.bias}]
+        df = pd.DataFrame(data)
+        df.to_json("info.json",orient="records",indent=4)
 
 class logic(extraction):
 
@@ -41,5 +44,6 @@ class logic(extraction):
             if echoe%10 ==0:
                 print(f"Baised is :{self.bias}")
         print("Weights is what ",self.weights)
+        self.save_file()
 p = logic()
 p.Training()
