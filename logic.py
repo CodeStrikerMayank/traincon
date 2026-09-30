@@ -12,10 +12,15 @@ class extraction:
         self.x1 = self.data[featrues].to_numpy()
         self.y1 = self.data[["Result (y)"]].to_numpy()
 
+    def check_sort(self):
+        data = pd.read("info.json")
+        self.weights = np.array(data["weights"][0])
+        self.bias  = data["bias"][0]
+
     def save_file(self):
         data = [{"weights": self.weights,"bias": self.bias}]
         df = pd.DataFrame(data)
-        df.to_json("info.json",orient="records",indent=4)
+        df.to_json("info.json",orient="split",indent=4)
 
 class logic(extraction):
 
