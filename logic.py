@@ -41,7 +41,7 @@ class logic(extraction):
             z = np.dot(self.x1,self.weights)+self.bias
             pred = self.sigmoid(z)
             loss = pred-self.y1
-            gradient = loss*pred*(1-pred)*1
+            gradient = loss
             dw = np.dot(self.x1.T,gradient)/n;
             db = np.sum(gradient)/n
             self.weights -= dw* self.lrt
